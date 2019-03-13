@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <script>
+            function fnExcelReport(){
+                var tab_text="<table border='2px'><tr bgcolor='#87AFC6'>";
+                var textRange; var j=0;
+                tab = document.getElementById('headerTable'); // id of table
+                for(j = 0 ; j < tab.rows.length ; j++){     
+                    tab_text=tab_text+tab.rows[j].innerHTML+"</tr>";
+                    //tab_text=tab_text+"</tr>";
+                }
+                tab_text=tab_text+"</table>";
+                tab_text= tab_text.replace(/<A[^>]*>|<\/A>/g, "");//remove if u want links in your table
+                tab_text= tab_text.replace(/<img[^>]*>/gi,""); // remove if u want images in your table
+                tab_text= tab_text.replace(/<input[^>]*>|<\/input>/gi, ""); // reomves input params
+                var ua = window.navigator.userAgent;
+                var msie = ua.indexOf("MSIE "); 
+                if (msie > 0 || !!navigator.userAgent.match(/Trident.*rv\:11\./)){  // If Internet Explorer
+                    txtArea1.document.open("txt/html","replace");
+                    txtArea1.document.write(tab_text);
+                    txtArea1.document.close();
+                    txtArea1.focus(); 
+                    sa=txtArea1.document.execCommand("SaveAs",true,"Say Thanks to Sumit.xls");
+                }else{//other browser not tested on IE 11
+                    sa = window.open('data:application/vnd.ms-excel,' + encodeURIComponent(tab_text));
+                }
+                return (sa);
+            }
+        </script>
+    </head>
+    <body>
+        <table id="headerTable">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Phone</th>
+                    <th>Mail</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr><td>1</td><td>dani</td><td>rojo</td><td>2644102320</td><td>danielrojosj@gmail.com</td></tr>
+                <tr><td>2</td><td>dani</td><td>rojo</td><td>2644102320</td><td>danielrojosj@gmail.com</td></tr>
+                <tr><td>3</td><td>dani</td><td>rojo</td><td>2644102320</td><td>danielrojosj@gmail.com</td></tr>
+                <tr><td>4</td><td>dani</td><td>rojo</td><td>2644102320</td><td>danielrojosj@gmail.com</td></tr>
+                <tr><td>5</td><td>dani</td><td>rojo</td><td>2644102320</td><td>danielrojosj@gmail.com</td></tr>
+                <tr><td>6</td><td>dani</td><td>rojo</td><td>2644102320</td><td>danielrojosj@gmail.com</td></tr>
+                <tr><td>7</td><td>dani</td><td>rojo</td><td>2644102320</td><td>danielrojosj@gmail.com</td></tr>
+                <tr><td>8</td><td>dani</td><td>rojo</td><td>2644102320</td><td>danielrojosj@gmail.com</td></tr>
+            </tbody>
+        </table>
+        <button id="btnExport" onclick="fnExcelReport();"> EXPORT </button>
+    </body>
+</html>
